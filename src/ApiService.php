@@ -14,7 +14,7 @@ class ApiService
 {
     private \Symfony\Contracts\HttpClient\HttpClientInterface $client;
     private string $url;
-    public function __construct($url)
+    public function __construct(string $url)
     {
         $this->client = HttpClient::create();
         $this->url = $url;
@@ -28,9 +28,9 @@ class ApiService
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function get(string $path = "") : string | \Exception
+    public function get(string $path = ""): string | \Exception
     {
-        try{
+        try {
             $response = $this->client->request('GET', $this->url . $path);
             return $response->getContent();
         } catch (\Exception $e) {
