@@ -18,7 +18,7 @@ class GitmojisService
 
     /*
      * @param string $path
-     * @return Gitmoji[]
+     * @return array<string, Gitmoji>
      */
     public function getAllGitmojis(string $path = ""): array
     {
