@@ -10,6 +10,8 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+use function PHPUnit\Framework\throwException;
+
 class ApiService
 {
     private \Symfony\Contracts\HttpClient\HttpClientInterface $client;
@@ -22,19 +24,20 @@ class ApiService
 
     /**
      * @param string $path
-     * @return string|\Exception or Exception
+     * @return string
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function get(string $path = ""): string | \Exception
+    public function get(string $path = ""): string
     {
         try {
             $response = $this->client->request('GET', $this->url . $path);
             return $response->getContent();
         } catch (\Exception $e) {
-            return $e;
+            throwException($e);
+            return "";
         }
     }
 }
